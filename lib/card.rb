@@ -1,25 +1,33 @@
 class Card
   SUIT_COLORS = {
-    :clubs    => :black,
-    :diamonds => :red,
-    :hearts   => :red,
-    :spades   => :black
+    clubs:    :black,
+    diamonds: :red,
+    hearts:   :red,
+    spades:   :black
   }
 
-  VALUE_STRINGS = {
-    :ace   => "1",
-    :two   => "2",
-    :three => "3",
-    :four  => "4",
-    :five  => "5",
-    :six   => "6",
-    :seven => "7",
-    :eight => "8",
-    :nine  => "9",
-    :ten   => "10",
-    :jack  => "11",
-    :queen => "12",
-    :king  => "13",
+  SUIT_SYMBOLS = {
+    clubs:    '♣',
+    diamonds: '♦',
+    hearts:   '♥',
+    spades:   '♠'
+
+  }
+
+  VALUE_RANKS = {
+    ace:    1,
+    two:    2,
+    three:  3,
+    four:   4,
+    five:   5,
+    six:    6,
+    seven:  7,
+    eight:  8,
+    nine:   9,
+    ten:    10,
+    jack:   11,
+    queen:  12,
+    king:   13,
   }
 
   # Returns an array of all suits.
@@ -29,7 +37,7 @@ class Card
 
   # Returns an array of all values.
   def self.values
-    VALUE_STRINGS.keys
+    VALUE_RANKS.keys
   end
 
   attr_reader :suit, :value
@@ -42,23 +50,15 @@ class Card
     @suit, @value = suit, value
   end
 
-  def suit_color
+  def color
     SUIT_COLORS[suit]
   end
 
-  def card_value
-    VALUE_STRINGS[value].to_i
+  def rank
+    VALUE_RANKS[value]
   end
 
-  # Compares two cards to see if they're equal in suit & value.
-  def ==(other_card)
-    return false if other_card.nil?
-
-    self.suit == other_card.suit &&
-    self.value == other_card.value
-  end
-
-  def to_s
-    SUIT_COLORS[suit].to_s + " " + VALUE_STRINGS[value]
+  def to_str
+    value.to_s.capitalize + " of " + suit.to_s.capitalize
   end
 end

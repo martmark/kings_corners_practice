@@ -1,23 +1,24 @@
 require_relative 'card'
 
 class Deck
+    attr_reader :cards
 
-    def self.all_card
+    def self.all_cards
         all_cards = []
-        Cards.suits.each do |suit|
-            Cards.values do |value|
-                cards << Card.new(suit, value)
+        Card.suits.each do |suit|
+            Card.values.each do |value|
+                all_cards << Card.new(suit, value)
             end
         end
-        call_cards
+        all_cards.shuffle
     end
 
-    def initialize
-        @cards = Deck.all_cards
+    def initialize(cards = Deck.all_cards)
+        @cards = cards
     end
 
     def count
-        @cards.count
+        cards.length
     end
 
     def empty?
@@ -25,14 +26,7 @@ class Deck
     end
 
     def take(n)
-        raise 'not enough cards' if count < n
-        @cards.shift(n)
-    end
-    
-    protected
-
-    def shuffle
-        cards.shuffle!
+        cards.shift(n) unless empty?
     end
 
 end
